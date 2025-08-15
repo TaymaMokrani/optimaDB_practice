@@ -2,15 +2,16 @@ import { Boolean, DateTime, Int, Password, Table, Text } from "@inflector/db";
 
 export const users = Table("users" , {
     id : Int({autoIncrement : true, primaryKey : true}) ,
-    username : Text({unique : true} ) ,
+    username : Text({primaryKey : true} ) ,
     password : Password({notNull : true}) ,
     isActive : Boolean() ,
     createdAt : DateTime({default : new Date().toString()})
 })
 
 export const follows = Table("follows" , {
-    user : Int({primaryKey : true , unique : true }).reference(() => users.id) ,
+    id : Int({autoIncrement : true}) ,
     follower : Int().reference(() => [users.id]) ,
+    following : Int().reference(() => [users.id]) 
 })
 
 export const post = Table("post" ,{
