@@ -10,7 +10,7 @@ export const users = Table("users" , {
 
 export const follows = Table("follows" , {
     user : Int({primaryKey : true , unique : true }).reference(() => users.id) ,
-    followers : Int().reference(() => [users.id]) ,
+    follower : Int().reference(() => [users.id]) ,
 })
 
 export const post = Table("post" ,{
