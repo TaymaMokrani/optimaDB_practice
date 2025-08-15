@@ -2,14 +2,14 @@ import { Boolean, DateTime, Int, Password, Table, Text } from "@inflector/db";
 
 export const users = Table("users" , {
     id : Int({autoIncrement : true, primaryKey : true}) ,
-    username : Text({primaryKey : true} ) ,
+    username : Text({unique : true} ) ,
     password : Password({notNull : true}) ,
     isActive : Boolean() ,
     createdAt : DateTime({default : new Date().toString()})
 })
 
 export const follows = Table("follows" , {
-    id : Int({autoIncrement : true}) ,
+    id : Int({  primaryKey: true , autoIncrement : true}) ,
     follower : Int().reference(() => [users.id]) ,
     following : Int().reference(() => [users.id]) 
 })
@@ -22,7 +22,7 @@ export const post = Table("post" ,{
 })
 
 export const Post_likes = Table("likes" , {
-    id : Int({autoIncrement : true}) ,
+    id : Int({ primaryKey: true , autoIncrement : true}) ,
     userId : Int().reference(() => [users.id]) ,
     postId : Int().reference(() => [post.id]) 
 })
@@ -37,7 +37,7 @@ export const comments = Table("comments" , {
 })
 
 export const comment_likes = Table("comment_likes" , {
-    id : Int({autoIncrement : true}) ,
+    id : Int({ primaryKey: true , autoIncrement : true}) ,
     userId : Int().reference(() => [users.id]) ,
     commentId : Int().reference(() => [comments.id]) 
 })
